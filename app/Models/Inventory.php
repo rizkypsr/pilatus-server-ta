@@ -12,4 +12,9 @@ class Inventory extends Model
     protected $table = 'inventory';
 
     protected $fillable = ['quantity'];
+
+    public function product()
+    {
+        return $this->hasOne(Product::class);
+    }
 }

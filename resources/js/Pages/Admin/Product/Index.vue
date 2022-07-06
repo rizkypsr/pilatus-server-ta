@@ -65,8 +65,8 @@
                                     <td>{{ product.price }}</td>
                                     <td class="row">
                                         <div class="col-md-6">
-                                            <button @click="openEditModal"
-                                                class="btn btn-block btn-outline-info">Ubah</button>
+                                            <Link :href="route('products.edit', product.id)"
+                                                class="btn btn-block btn-outline-info">Ubah</Link>
                                         </div>
                                         <div class="col-md-6">
                                             <button @click="destroy(product.id)" type="button"
@@ -83,45 +83,15 @@
             </div>
         </div>
     </AppLayout>
-
-    <div class="modal fade show" id="modal-lg" style="display: block; padding-right: 15px;" aria-modal="true"
-        role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Large Modal</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>One fine body…</p>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
 </template>
 
 <script setup>
 import AppLayout from "@/Pages/Admin/AppLayout.vue";
 import { Inertia } from "@inertiajs/inertia";
-import { useForm } from "@inertiajs/inertia-vue3";
 
 defineProps([
     'products'
 ])
-
-const form = useForm();
-
-function openEditModal() {
-    $('#modal-lg').modal('show')
-}
 
 function destroy(id) {
     Inertia.delete(route('products.destroy', id))

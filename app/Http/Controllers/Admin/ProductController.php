@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Inventory;
 use App\Models\Product;
+use App\Models\User;
 use Bepsvpt\Blurhash\BlurHash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -106,7 +107,12 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        return Inertia::render('Admin/Product/Edit');
+
+        $product = Product::with(['inventory', 'category'])->where('id', $id)->first();
+
+        return Inertia::render('Admin/Product/Edit', [
+            'product' => $product
+        ]);
     }
 
     /**
