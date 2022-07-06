@@ -18,7 +18,7 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Quick Example</h3>
+                        <h3 class="card-title">Produk</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <label>Kategori</label>
                                 <select v-model="form.category" class="form-control" required>
-                                    <option v-for="category in categories" value="{{ category.id }}">{{ category.name }}</option>
+                                    <option v-for="category in categories" :value="category.id">{{ category.name }}</option>
                                 </select>
                             </div>
                             <div class="form-group">

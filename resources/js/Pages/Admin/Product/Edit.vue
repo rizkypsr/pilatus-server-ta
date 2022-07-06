@@ -18,7 +18,7 @@
                 <!-- general form elements -->
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Quick Example</h3>
+                        <h3 class="card-title">Produk</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <label>Kategori</label>
                                 <select v-model="form.category" class="form-control" required>
-                                    <option v-for="category in categories" value="{{ category.id }}">{{ category.name }}</option>
+                                    <option v-for="category in categories" value="{{ category.id }}" {{ category.id == product.category.id && 'selected' }} >{{ category.name }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -91,20 +91,20 @@ import AppLayout from "@/Pages/Admin/AppLayout.vue";
 import { useForm } from "@inertiajs/inertia-vue3";
 import route from "../../../../../vendor/tightenco/ziggy/src/js";
 
-defineProps([
+const props = defineProps([
+    'product',
     'categories'
 ])
 
 const form = useForm({
-    name: '',
-    description: '',
-    category: '',
-    stock: '',
+    name: props.product.name,
+    description:  props.product.desc,
+    category:  props.product.category.id,
+    stock:  props.product.inventory.quantity,
     photo: null,
-    price: '',
-    weight: '',
+    price: props.product.price,
+    weight:  props.product.weight,
 });
-
 
 function submit() {
     form.post(route('products.store'))
