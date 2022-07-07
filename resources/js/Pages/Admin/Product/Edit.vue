@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <label>Kategori</label>
                                 <select v-model="form.category" class="form-control" required>
-                                    <option v-for="category in categories" value="{{ category.id }}" {{ category.id == product.category.id && 'selected' }} >{{ category.name }}</option>
+                                    <option v-for="category in categories" value="{{ category.id }}" >{{ category.name }}</option>
                                 </select>
                             </div>
                             <div class="form-group">

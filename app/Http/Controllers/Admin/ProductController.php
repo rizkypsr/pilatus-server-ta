@@ -53,7 +53,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'photo' => 'required|image|mimes:png,jpg, jpeg|max:2048',
+            'photo' => 'required|image|max:2048',
         ]);
 
         if ($validator->fails()) {
