@@ -26477,7 +26477,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           onClick: function onClick($event) {
             return $setup.destroy(category.id);
           },
-          "class": "far fa-trash text-danger"
+          "class": "fas fa-trash text-danger"
         }, null, 8
         /* PROPS */
         , _hoisted_19)])])]);
