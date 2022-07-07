@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="col-6">
                                             <i role="button" @click="destroy(category.id)"
-                                                class="far fa-trash text-danger"></i>
+                                                class="fas fa-trash text-danger"></i>
                                         </div>
                                     </td>
                                 </tr>
