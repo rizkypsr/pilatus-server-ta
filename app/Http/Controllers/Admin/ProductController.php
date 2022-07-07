@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\User;
 use Bepsvpt\Blurhash\BlurHash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
@@ -23,7 +24,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate();
+        $products = Product::with(['category', 'inventory'])->paginate();
 
         return Inertia::render('Admin/Product/Index', [
             'products' => $products
@@ -52,16 +53,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'photo' => 'required|image|max:2048',
+        $request->validate([
+            'name' => ['required'],
+            'description' => ['required'],
+            'category' => ['required'],
+            'stock' => ['required'],
+            'price' => ['required', 'numeric'],
+            'weight' => ['required', 'numeric'],
+            'photo' => ['required', 'image', 'max:2048']
         ]);
-
-        if ($validator->fails()) {
-            return ResponseFormatter::error([
-                'message' => 'Terjadi Kesalahan Pada Server',
-                'error' => $validator->errors(),
-            ], 'Authentication Failed', 422);
-        }
 
         if ($photo = $request->file('photo')) {
             $photo->storeAs('public/products', $photo->hashName());
@@ -84,7 +84,7 @@ class ProductController extends Controller
             ]);
 
             return redirect()->route('products.index')
-                ->with('message', 'Produk berhasil ditambahkan');;
+                ->with('message', 'Produk berhasil ditambahkan');
         }
     }
 
@@ -109,9 +109,11 @@ class ProductController extends Controller
     {
 
         $product = Product::with(['inventory', 'category'])->where('id', $id)->first();
+        $categories = Category::all();
 
         return Inertia::render('Admin/Product/Edit', [
-            'product' => $product
+            'product' => $product,
+            'categories' => $categories,
         ]);
     }
 
@@ -122,9 +124,43 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $photo = $product->photo;
+        $blurHash = null;
+
+        $request->validate([
+            'name' => ['required'],
+            'description' => ['required'],
+            'category' => ['required'],
+            'stock' => ['required'],
+            'price' => ['required', 'numeric'],
+            'weight' => ['required', 'numeric'],
+        ]);
+
+        if ($newPhoto = $request->file('photo')) {
+            Storage::delete('public/products/' . $product->photo);
+            $newPhoto->storeAs('public/products', $newPhoto->hashName());
+            $blurHash = new BlurHash();
+        }
+
+        $inventory = Inventory::create([
+            'quantity' => (int) $request->stock
+        ]);
+
+        $product->update([
+            'name' => $request->name,
+            'desc' => $request->description,
+            'category_id' => (int) $request->category,
+            'inventory_id' => $inventory->id,
+            'price' => (int) $request->price,
+            'weight' => floatval($request->weight),
+            'photo' => $blurHash != null ? $newPhoto->hashName() : $photo,
+            'blurhash' => $blurHash != null ? $blurHash->encode($newPhoto) : $product->blurhash,
+        ]);
+
+        return redirect()->route('products.index')
+            ->with('message', 'Produk berhasil diubah');
     }
 
     /**
