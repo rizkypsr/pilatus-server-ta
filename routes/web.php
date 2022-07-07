@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\ProductController;
@@ -51,5 +52,6 @@ Route::group(['prefix' => 'admin'], function () {
 
         Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::resource('products', ProductController::class);
+        Route::resource('categories', CategoryController::class);
     });
 });
