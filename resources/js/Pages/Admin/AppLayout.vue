@@ -64,12 +64,13 @@
                                 </Link>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/widgets.html" class="nav-link">
-                                    <i class="nav-icon fas fa-box"></i>
-                                    <p>
-                                        Kategori
-                                    </p>
-                                </a>
+                                <Link :href="route('categories.index')" class="nav-link"
+                                    :class="route().current('categories.index') && 'active'">
+                                <i class="nav-icon fas fa-box"></i>
+                                <p>
+                                    Kategori
+                                </p>
+                                </Link>
                             </li>
                             <li class="nav-item">
                                 <a href="pages/widgets.html" class="nav-link">
