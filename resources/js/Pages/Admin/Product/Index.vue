@@ -43,6 +43,7 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Gambar</th>
                                     <th>ID</th>
                                     <th>Nama Produk</th>
                                     <th>Deskripsi</th>
@@ -56,21 +57,25 @@
                             <tbody>
                                 <tr v-for="(product, index) in products.data" :key="product.id">
                                     <td>{{ index + 1 }}</td>
+                                    <td style="width: 3rem">
+                                        <img :src="`/storage/products/${product.photo}`" class="img-thumbnail" />
+                                    </td>
                                     <td>{{ product.id }}</td>
                                     <td>{{ product.name }}</td>
                                     <td>{{ product.desc }}</td>
-                                    <td>Kategori Coming Soon</td>
-                                    <td>Stok Coming Soon</td>
+                                    <td>{{ product.category.name }}</td>
+                                    <td>{{ product.inventory.quantity }}</td>
                                     <td>{{ product.weight }}</td>
                                     <td>{{ product.price }}</td>
                                     <td class="row">
-                                        <div class="col-md-6">
-                                            <Link :href="route('products.edit', product.id)"
-                                                class="btn btn-block btn-outline-info">Ubah</Link>
+                                        <div class="col-6">
+                                            <Link :href="route('products.edit', product.id)">
+                                            <i class="fas fa-edit"></i>
+                                            </Link>
                                         </div>
-                                        <div class="col-md-6">
-                                            <button @click="destroy(product.id)" type="button"
-                                                class="btn btn-block btn-outline-danger">Hapus</button>
+                                        <div class="col-6">
+                                            <i role="button" @click="destroy(product.id)"
+                                                class="far fa-trash text-danger"></i>
                                         </div>
                                     </td>
                                 </tr>
@@ -88,13 +93,27 @@
 <script setup>
 import AppLayout from "@/Pages/Admin/AppLayout.vue";
 import { Inertia } from "@inertiajs/inertia";
+import Swal from "sweetalert2";
 
 defineProps([
-    'products'
+    'products',
+    'errors'
 ])
 
 function destroy(id) {
-    Inertia.delete(route('products.destroy', id))
+    Swal.fire({
+        title: 'Anda yakin ingin menghapus produk?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Hapus',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.value) {
+            Inertia.delete(route('products.destroy', id))
+        }
+    });
 }
 
 </script>
