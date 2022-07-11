@@ -17,9 +17,7 @@ class CategoryController extends Controller
     {
         $category = Category::all();
 
-        return ResponseFormatter::success([
-            'categories' => $category
-        ], "Get All Categories Success");
+        return ResponseFormatter::success($category, "Get All Categories Success");
     }
 
     /**

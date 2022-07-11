@@ -1,7 +1,6 @@
 <?php
 
-use App\Models\Payment;
-use App\Models\User;
+use App\Models\Shipping;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,13 +14,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('order', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->foreignIdFor(User::class);
-            $table->integer('total');
-            $table->foreignIdFor(Payment::class)->nullable();
-            $table->string('status');
-            $table->timestamps();
+        Schema::table('order', function (Blueprint $table) {
+            $table->foreignIdFor(Shipping::class)->nullable();
         });
     }
 
@@ -32,6 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order');
+        Schema::table('order', function (Blueprint $table) {
+            $table->removeColumn('shipping_id');
+        });
     }
 };
