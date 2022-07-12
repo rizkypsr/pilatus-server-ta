@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\Fortify\PasswordValidationRules;
 use App\Helpers\ResponseFormatter;
+use App\Models\Order;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class UserController extends Controller
             $user = User::where('email', $request->email)->first();
 
             if (!Hash::check($request->password, $user->password)) {
-                throw new Exception('Invalid Credentials');
+                throw new Exception('Email atau password salah');
             }
 
             $tokenResult = $user->createToken('authToken')->plainTextToken;

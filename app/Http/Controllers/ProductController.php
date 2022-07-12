@@ -17,11 +17,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with(['category', 'inventory'])->get();
 
-        return ResponseFormatter::success([
-            'products' => $products
-        ], "Get All Products Success");
+        return ResponseFormatter::success($products, "Get All Products Success");
     }
 
     /**
@@ -43,7 +41,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $products = Product::find($id);
+        $products = Product::with(['category', 'inventory'])->where('id', $id)->get();
 
         return ResponseFormatter::success([
             'products' => $products
@@ -58,11 +56,9 @@ class ProductController extends Controller
      */
     public function byCategory($id)
     {
-        $category = Category::find($id);
+        $category = Category::with(['product.category', 'product.inventory'])->find($id);
 
-        return ResponseFormatter::success([
-            'products' => $category->product
-        ], "Get All Products by Category Success");
+        return ResponseFormatter::success($category->product, "Get All Products by Category Success");
     }
 
     /**
