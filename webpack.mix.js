@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,13 +11,22 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js').vue()
-    .sass('resources/sass/app.scss', 'public/css')
-    .webpackConfig(require('./webpack.config'));
+mix.js("resources/js/app.js", "public/js")
+    .vue()
+    .sass("resources/sass/app.scss", "public/css")
+    .webpackConfig(require("./webpack.config"));
 
 // Dashboard theme assets...
-mix.js('resources/js/dashboard.js', 'public/js')
-    .sass('resources/sass/dashboard/dashboard.scss', 'public/css');
+mix.js("resources/js/dashboard.js", "public/js")
+    .sass("resources/sass/dashboard/dashboard.scss", "public/css")
+    .postCss(
+        "node_modules/admin-lte/plugins/daterangepicker/daterangepicker.css",
+        "public/css"
+    )
+    .js(
+        "node_modules/admin-lte/plugins/daterangepicker/daterangepicker.js",
+        "public/js"
+    );
 
 if (mix.inProduction()) {
     mix.version();

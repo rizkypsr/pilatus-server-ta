@@ -14,7 +14,7 @@
                     <div class="border-0 card-header">
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Produk</h3>
-                            <Link>Lihat Produk</Link>
+                            <Link :href="route('products.index')">Lihat Produk</Link>
                         </div>
                     </div>
                     <div class="card-body">
@@ -31,7 +31,7 @@
                     <div class="border-0 card-header">
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Kategori</h3>
-                            <Link>Lihat Kategori</Link>
+                            <Link :href="route('categories.index')">Lihat Kategori</Link>
                         </div>
                     </div>
                     <div class="card-body">
@@ -51,7 +51,7 @@
                     <div class="border-0 card-header">
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Users</h3>
-                            <Link>Lihat Users</Link>
+                            <Link :href="route('users.index')">Lihat Users</Link>
                         </div>
                     </div>
                     <div class="card-body">
@@ -69,7 +69,7 @@
                     <div class="border-0 card-header">
                         <div class="d-flex justify-content-between">
                             <h3 class="card-title">Transaksi</h3>
-                            <Link>Lihat Transaksi</Link>
+                            <Link :href="route('orders.index')">Lihat Transaksi</Link>
                         </div>
                     </div>
                     <div class="card-body">
