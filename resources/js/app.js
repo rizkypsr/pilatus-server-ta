@@ -6,6 +6,15 @@ import { createInertiaApp, Link } from "@inertiajs/inertia-vue3";
 import { InertiaProgress } from "@inertiajs/progress";
 import VueSweetalert2 from "vue-sweetalert2";
 
+global.jQuery = require("jquery");
+var $ = global.jQuery;
+var jQuery = global.JQuery;
+window.$ = $;
+window.jQuery = jQuery;
+require("bootstrap");
+global.moment = require("moment");
+require("daterangepicker");
+
 const appName =
     window.document.getElementsByTagName("title")[0]?.innerText || "Pilatus";
 

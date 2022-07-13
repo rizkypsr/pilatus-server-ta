@@ -47,7 +47,8 @@
                                 </Link>
                             </li>
                             <li class="nav-item">
-                                <Link :href="route('users.index')" class="nav-link">
+                                <Link :href="route('users.index')" class="nav-link"
+                                    :class="route().current('users.index') && 'active'">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Users
@@ -73,20 +74,22 @@
                                 </Link>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/widgets.html" class="nav-link">
-                                    <i class="nav-icon fas fa-file-invoice-dollar"></i>
-                                    <p>
-                                        Transaksi
-                                    </p>
-                                </a>
+                                <Link :href="route('orders.index')" class="nav-link"
+                                    :class="route().current('orders.index') && 'active'">
+                                <i class="nav-icon fas fa-file-invoice-dollar"></i>
+                                <p>
+                                    Transaksi
+                                </p>
+                                </Link>
                             </li>
                             <li class="nav-item">
-                                <a href="pages/widgets.html" class="nav-link">
-                                    <i class="nav-icon fas fa-book"></i>
-                                    <p>
-                                        Laporan
-                                    </p>
-                                </a>
+                                <Link :href="route('reports.index')" class="nav-link"
+                                    :class="route().current('reports.index') && 'active'">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    Laporan
+                                </p>
+                                </Link>
                             </li>
                         </ul>
                     </nav>
