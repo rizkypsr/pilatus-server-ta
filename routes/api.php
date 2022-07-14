@@ -37,6 +37,8 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::apiResource('cart', CartController::class);
     Route::apiResource('order', OrderController::class);
     Route::get('orders/{status}', [OrderController::class, 'getOrderByStatus']);
+    Route::get('user', [UserController::class, 'getUser']);
+    Route::post('user', [UserController::class, 'changeName']);
 
     Route::post('logout', [UserController::class, 'logout']);
 });
