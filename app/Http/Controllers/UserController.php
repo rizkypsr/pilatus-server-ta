@@ -10,11 +10,39 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
 
     use PasswordValidationRules;
+
+    public function getUser()
+    {
+        return ResponseFormatter::success(Auth::user(), 'Success');
+    }
+
+    public function changeName(Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
+
+            $user = User::find(Auth::user()->id);
+
+            $user->update([
+                "name" => $request->name
+            ]);
+
+            return ResponseFormatter::success($user, 'Success');
+        } catch (Exception $error) {
+            return ResponseFormatter::error([
+                'message' => 'Terjadi Kesalahan Pada Server',
+                'error' => $error,
+            ], 'Authentication Failed', 500);
+        }
+    }
 
     public function login(Request $request)
     {
@@ -28,8 +56,8 @@ class UserController extends Controller
 
             if (!Auth::attempt($credentials)) {
                 return ResponseFormatter::error([
-                    'message' => 'unauthorized'
-                ], 'Authentication Failed', 500);
+                    'message' => 'Email atau password salah'
+                ], 'Authentication Failed', 403);
             }
 
             $user = User::where('email', $request->email)->first();
@@ -56,11 +84,15 @@ class UserController extends Controller
     {
         try {
 
-            $request->validate([
+            $validator = Validator::make($request->all(), [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|min:8'
             ]);
+
+            if ($validator->fails()) {
+                return ResponseFormatter::error(['error' => $validator->errors()], 'Register Failed', 403);
+            }
 
             User::create([
                 'name' => $request->name,
