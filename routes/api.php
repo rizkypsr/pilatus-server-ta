@@ -39,6 +39,9 @@ Route::middleware('auth:sanctum')->prefix('v1')->group(function () {
     Route::get('orders/{status}', [OrderController::class, 'getOrderByStatus']);
     Route::get('user', [UserController::class, 'getUser']);
     Route::post('user', [UserController::class, 'changeName']);
+    Route::post('cart/add/{id}', [CartController::class, 'addQuantity']);
+    Route::post('cart/remove/{id}', [CartController::class, 'removeQuantity']); 
+   
 
     Route::post('logout', [UserController::class, 'logout']);
 });

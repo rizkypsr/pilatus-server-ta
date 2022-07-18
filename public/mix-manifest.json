@@ -2,7 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/js/dashboard.js": "/js/dashboard.js",
     "/js/daterangepicker.js": "/js/daterangepicker.js",
-    "/css/dashboard.css": "/css/dashboard.css",
     "/css/app.css": "/css/app.css",
+    "/css/dashboard.css": "/css/dashboard.css",
     "/css/daterangepicker.css": "/css/daterangepicker.css"
 }

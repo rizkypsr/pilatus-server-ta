@@ -148,6 +148,13 @@ class OrderController extends Controller
             $order->payment_url = $paymentUrl;
             $order->save();
 
+            $cart->update([
+                "total" => 0
+            ]);
+            
+            $cartItems = CartItem::where('cart_id', $cart->id)->get(['id']);
+            CartItem::destroy($cartItems->toArray());
+
             return ResponseFormatter::success($order, "Checkout Successfull");
         } catch (Exception $error) {
             return ResponseFormatter::error($error->getMessage(), 'Order Failed');
