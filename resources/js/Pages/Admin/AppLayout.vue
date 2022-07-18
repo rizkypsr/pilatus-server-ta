@@ -28,7 +28,7 @@
                     <!-- Sidebar user panel (optional) -->
                     <div class="pb-3 mt-3 mb-3 text-center user-panel">
                         <div class="info">
-                            <a href="#" class="">Alexander Pierce</a>
+                            <a href="#" class=""> {{ $page.props.auth.user.name }}</a>
                         </div>
                     </div>
 

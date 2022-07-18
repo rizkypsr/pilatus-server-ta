@@ -149,4 +149,50 @@ class CartController extends Controller
             ], 'Authentication Failed', 500);
         }
     }
+
+    public function addQuantity($id)
+    {
+        try {
+
+            $cartItem = CartItem::with(['product', 'cart'])->find($id);
+            $cartItem->quantity = $cartItem->quantity + 1;
+            $cartItem->cart->total = $cartItem->cart->total + $cartItem->product->price;
+
+            $cartItem->save();
+            $cartItem->cart->save();
+            
+            return ResponseFormatter::success(
+                $cartItem,
+                "Quantity Ditambah"
+            ); 
+        } catch (Exception $error) {
+            return ResponseFormatter::error([
+                'message' => 'Terjadi Kesalahan Pada Server',
+                'error' => $error,
+            ], 'Authentication Failed', 500);
+        }
+    }
+
+    public function removeQuantity($id)
+    {
+        try {
+
+            $cartItem = CartItem::with(['product', 'cart'])->find($id);
+            $cartItem->quantity = $cartItem->quantity - 1;
+            $cartItem->cart->total = $cartItem->cart->total - $cartItem->product->price;
+
+            $cartItem->save();
+            $cartItem->cart->save();
+            
+            return ResponseFormatter::success(
+                $cartItem,
+                "Quantity dikurangi"
+            ); 
+        } catch (Exception $error) {
+            return ResponseFormatter::error([
+                'message' => 'Terjadi Kesalahan Pada Server',
+                'error' => $error,
+            ], 'Authentication Failed', 500);
+        }
+    }
 }
