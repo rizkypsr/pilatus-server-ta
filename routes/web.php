@@ -48,10 +48,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('login', [LoginController::class, 'login'])->name('admin.login.post');
     Route::get('logout', [LoginController::class, 'logout'])->name('admin.logout');
 
-    Route::resource('users', UserController::class);
 
     Route::group(['middleware' => ['auth:admin']], function () {
-
+        Route::resource('users', UserController::class);
         Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::resource('products', ProductController::class);
         Route::resource('categories', CategoryController::class);

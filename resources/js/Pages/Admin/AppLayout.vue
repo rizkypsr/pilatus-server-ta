@@ -20,7 +20,7 @@
             <aside class="main-sidebar sidebar-dark-primary elevation-4">
                 <!-- Brand Logo -->
                 <Link :href="route('admin.dashboard')" class="text-center brand-link">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class="brand-text font-weight-light">Admin Pilatus</span>
                 </Link>
 
                 <!-- Sidebar -->
@@ -140,8 +140,7 @@
 
             <!-- Main Footer -->
             <footer class="main-footer">
-                <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-                All rights reserved.
+                Made by <strong>Weli Pebrianti</strong>
                 <div class="float-right d-none d-sm-inline-block">
                     <b>Version</b> 3.2.0
                 </div>

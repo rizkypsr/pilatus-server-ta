@@ -47,10 +47,10 @@ class MidtransController extends Controller
             if ($fraud == 'challenge') {
                 $order->status = 'PENDING';
             } else if ($fraud == 'accept') {
-                $order->status = 'SUCCESS';
+                $order->status = 'PROCCESSED';
             }
         } else if ($status == 'settlement') {
-            $order->status = 'SUCCESS';
+            $order->status = 'PROCCESSED';
         } else if ($status == 'pending') {
             $order->status = 'PENDING';
         } else if ($status == 'expire') {

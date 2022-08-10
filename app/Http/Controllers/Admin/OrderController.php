@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -89,9 +90,14 @@ class OrderController extends Controller
         ]);
 
         $shipping = Shipping::find($id);
+        $order = Order::where('shipping_id', $shipping->id)->first();
 
         $shipping->update([
             'resi' => $request->resi
+        ]);
+
+        $order->update([
+            'status' => 'DELIVERED'
         ]);
 
         return redirect()->route('orders.index')
